@@ -1,5 +1,7 @@
 
 class Api::V1::ProductsController < ApplicationController
+	
+	skip_before_filter :verify_authenticity_token  
 
 	def index
 		@products = Product.all
@@ -11,7 +13,7 @@ class Api::V1::ProductsController < ApplicationController
     if product.save
       render json: product, status: 201
     else
-      render json: { errors: product.errors }, status: 422
+      render json: { errors: product.errors }
     end
   end
   
